@@ -12,8 +12,8 @@ export default {
       }
 
       const object = await env.HISAAB_RELEASES.get(
-        "hisaab-release.apk"
-      );
+        "app-release.apk"
+    );
 
       if (!object) {
         return new Response("APK not found", {
