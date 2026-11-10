@@ -10,6 +10,7 @@ import {
 } from "react-router";
 import { useEffect, useState } from "react";
 import "./index.css";
+import appIcon from "./assets/app_icon.png";
 const DOWNLOAD_URL = import.meta.env.VITE_APK_URL || "";
 const faqs = [
   [
@@ -74,8 +75,16 @@ function Header() {
     <header className="header">
       <nav className="nav glass wrap">
         <Link to="/" className="brand">
-          <span className="brand-mark">◈</span> hisaab
-          <span className="lime">.</span>
+          <img
+            src={appIcon}
+            alt="Hisaab"
+            className="brand-app-icon"
+            width="38"
+            height="38"
+          />
+          <span>
+            hisaab<span className="lime">.</span>
+          </span>
         </Link>
         <div className={"navlinks " + (open ? "open" : "")}>
           <NavLink to="/">Home</NavLink>
@@ -105,7 +114,16 @@ function Footer() {
     <footer className="footer wrap">
       <div>
         <Link className="brand" to="/">
-          hisaab<span className="lime">.</span>
+          <img
+            src={appIcon}
+            alt="Hisaab"
+            className="brand-app-icon"
+            width="38"
+            height="38"
+          />
+          <span>
+            hisaab<span className="lime">.</span>
+          </span>
         </Link>
         <p>Know where it goes.</p>
       </div>
@@ -720,57 +738,114 @@ function Features() {
   );
 }
 
+
 function InstallationHelp() {
   const steps = [
-    [
-      "01",
-      "Download the official APK",
-      <>
-        Use the download button on <strong>hisaab.zynapse.in</strong>. Avoid
-        forwarded APKs or links from strangers.
-      </>,
-    ],
-    [
-      "02",
-      "Open your download",
-      <>
-        Open the APK from your browser's Downloads list or Android's Files app.
-      </>,
-    ],
-    [
-      "03",
-      "Review Android prompts",
-      <>
-        If Android asks to allow installs from your browser, review the source
-        and enable it only if you trust this download. Keep Play Protect
-        enabled.
-      </>,
-    ],
-    [
-      "04",
-      "Grant only needed access",
-      <>
-        After successful installation, read Hisaab's permission explanation
-        before allowing SMS access for transaction tracking.
-      </>,
-    ],
+    {
+      number: "01",
+      title: "Download the official APK",
+      description: (
+        <>
+          Download Hisaab only from{" "}
+          <strong>hisaab.zynapse.in</strong>. Avoid APK files shared
+          through unknown websites, messages, or forwarded links.
+        </>
+      ),
+    },
+    {
+      number: "02",
+      title: "Open the downloaded APK",
+      description: (
+        <>
+          Open your phone's <strong>Files</strong> app and navigate to{" "}
+          <strong>Downloads</strong>. Find the Hisaab APK and tap it.
+          You can also open the file directly from your browser's
+          Downloads section.
+        </>
+      ),
+    },
+    {
+      number: "03",
+      title: "Allow installation from this source",
+      description: (
+        <>
+          If Android blocks installation from your browser or file
+          manager, open:
+          <br />
+          <br />
+          <strong>
+            Settings → Apps → Special app access → Install unknown apps
+          </strong>
+          <br />
+          <br />
+          Select the app you used to open the APK, such as Chrome or
+          Files, and enable <strong>Allow from this source</strong>.
+          Only enable this for a source you trust.
+        </>
+      ),
+    },
+    {
+      number: "04",
+      title: "Install Hisaab",
+      description: (
+        <>
+          Return to your downloaded APK, tap it again, review the
+          installation prompt, and select <strong>Install</strong>.
+          Once installation finishes, select <strong>Open</strong>.
+          You can turn off "Allow from this source" afterward.
+        </>
+      ),
+    },
+    {
+      number: "05",
+      title: "Complete the initial setup",
+      description: (
+        <>
+          Open Hisaab and follow the onboarding instructions. Enter
+          your profile information, configure your income and bank
+          accounts, and select your preferred budget cadence.
+        </>
+      ),
+    },
+    {
+      number: "06",
+      title: "Review SMS permissions",
+      description: (
+        <>
+          Hisaab requests SMS access to recognize supported bank
+          transaction alerts. Review Android's permission prompt
+          before granting access. Hisaab does not require your bank
+          password or banking login credentials.
+        </>
+      ),
+    },
   ];
+
   return (
     <>
       <section className="install-section" id="install">
         <span className="eyebrow">INSTALLATION GUIDE</span>
+
         <h2>
-          Four clear steps.
+          Install Hisaab.
           <br />
-          <span className="lime">No shortcuts to security.</span>
+          <span className="lime">Step by step.</span>
         </h2>
+
         <p className="lead">
-          Android's installation screens vary by phone. Hisaab is distributed as
-          a signed Android APK, outside the Google Play Store.
+          Hisaab is currently distributed as a signed Android APK
+          outside the Google Play Store. Follow these instructions
+          to install it from the official website. Settings names
+          may differ depending on your Android version and phone
+          manufacturer.
         </p>
+
         <div className="install-steps">
-          {steps.map(([number, title, description]) => (
-            <article key={number} className="glass install-step">
+          {steps.map(({ number, title, description }) => (
+            <article
+              key={number}
+              className="glass install-step"
+            >
               <span>{number}</span>
               <h3>{title}</h3>
               <p>{description}</p>
@@ -778,31 +853,63 @@ function InstallationHelp() {
           ))}
         </div>
       </section>
-      <section className="install-alert" aria-labelledby="play-protect-title">
+
+      <section
+        className="install-alert"
+        aria-labelledby="play-protect-title"
+      >
         <div className="install-alert-icon">
           <Icon name="verified_user" size={27} />
         </div>
+
         <div>
-          <span className="eyebrow">TRANSPARENT INSTALLATION STATUS</span>
-          <h2 id="play-protect-title">A note about Google Play Protect</h2>
+          <span className="eyebrow">
+            GOOGLE PLAY PROTECT
+          </span>
+
+          <h2 id="play-protect-title">
+            Understanding Android security warnings
+          </h2>
+
           <p>
-            Some Android devices currently block Hisaab with an “App blocked to
-            protect your device” warning because the app requests sensitive SMS
-            access. We are investigating the warning. A valid signature does not
-            mean Google has approved the app.
+            Google Play Protect scans Android apps for potentially
+            harmful behavior, including apps installed outside
+            Google Play.
           </p>
+
           <p>
-            <strong>If Play Protect blocks installation, stop there.</strong> We
-            do not recommend disabling Play Protect or following bypass
-            instructions. You can{" "}
+            Some Android devices currently display an{" "}
+            <strong>
+              "App blocked to protect your device"
+            </strong>{" "}
+            warning when installing Hisaab. The app requests
+            sensitive SMS permissions for its transaction tracking
+            functionality.
+          </p>
+
+          <p>
+            <strong>
+              A signed APK does not mean that Google has approved
+              or verified the application.
+            </strong>
+          </p>
+
+          <p>
+            If Play Protect blocks the installation, stop rather
+            than disabling Play Protect or bypassing the warning.
+            You can report the exact warning so we can investigate
+            it and improve the installation experience.
+          </p>
+
+          <p>
             <a
               href="https://forms.gle/nW7GMcETG2za99519"
               target="_blank"
               rel="noopener noreferrer"
             >
-              report the warning
-            </a>{" "}
-            and read{" "}
+              Report an installation problem
+            </a>
+            {" · "}
             <a
               href="https://developers.google.com/android/play-protect/warning-dev-guidance"
               target="_blank"
@@ -810,58 +917,171 @@ function InstallationHelp() {
             >
               Google's official guidance
             </a>
-            .
           </p>
         </div>
       </section>
-      <section className="install-section install-security">
-        <span className="eyebrow">BEFORE YOU INSTALL</span>
+
+      <section className="install-section">
+        <span className="eyebrow">
+          TROUBLESHOOTING
+        </span>
+
         <h2>
-          Know exactly <span className="lime">what you're getting.</span>
+          Installation issues?
+          <br />
+          <span className="lime">Here's what to check.</span>
         </h2>
-        <div className="install-facts">
-          <article className="glass">
-            <Icon name="sms" size={29} />
-            <h3>Why SMS access?</h3>
+
+        <div className="install-steps">
+          <article className="glass install-step">
+            <span>
+              <Icon name="folder_open" size={27} />
+            </span>
+
+            <h3>Can't install from Files or Chrome?</h3>
+
             <p>
-              Hisaab uses READ_SMS to import supported past bank alerts and
-              RECEIVE_SMS to detect incoming transaction messages. This is its
-              core automation feature.
+              Open <strong>Settings → Apps → Special app access
+              → Install unknown apps</strong>.
+              Select the browser or file manager used to open
+              the APK, and enable{" "}
+              <strong>Allow from this source</strong>.
+            </p>
+
+            <p>
+              Try opening the downloaded APK again. This setting
+              authorizes installation from that source; it does
+              not disable Google Play Protect.
             </p>
           </article>
-          <article className="glass">
-            <Icon name="database" size={29} />
-            <h3>Local-first storage</h3>
+
+          <article className="glass install-step">
+            <span>
+              <Icon name="admin_panel_settings" size={27} />
+            </span>
+
+            <h3>Android says "Restricted setting"?</h3>
+
             <p>
-              Transaction records are designed to be stored on your device using
-              SQLite. SMS tracking does not require your bank password or
-              banking login.
+              Some Android versions restrict sensitive features
+              such as Accessibility or Notification Access for
+              apps installed outside an app store.
+            </p>
+
+            <p>
+              Hisaab's SMS transaction tracking does not
+              normally require Accessibility or Notification
+              Access. Do not enable restricted settings unless
+              a verified Hisaab feature specifically requires
+              them and you understand the access being requested.
+            </p>
+
+            <p>
+              If you encounter this warning while granting
+              normal SMS permissions, report the issue with
+              your Android version and phone model.
             </p>
           </article>
-          <article className="glass">
-            <Icon name="shield" size={29} />
-            <h3>Verify the release</h3>
+
+          <article className="glass install-step">
+            <span>
+              <Icon name="sms" size={27} />
+            </span>
+
+            <h3>SMS transactions aren't appearing?</h3>
+
             <p>
-              Package: <code>com.zynapse.hisaab</code>. The current release APK
-              was checked against the download hosted on this domain. Later
-              releases require fresh verification.
+              Open Android Settings, find Hisaab under Apps,
+              and check whether the requested SMS permission
+              has been granted.
+            </p>
+
+            <p>
+              Hisaab recognizes supported bank SMS formats.
+              Some messages may not yet be parsed correctly.
+              If transactions are missing, please report
+              the problem through our feedback form.
             </p>
           </article>
         </div>
+      </section>
+
+      <section className="install-section install-security">
+        <span className="eyebrow">
+          BEFORE YOU INSTALL
+        </span>
+
+        <h2>
+          Know exactly{" "}
+          <span className="lime">
+            what you're getting.
+          </span>
+        </h2>
+
+        <div className="install-facts">
+          <article className="glass">
+            <Icon name="sms" size={29} />
+
+            <h3>Why SMS access?</h3>
+
+            <p>
+              Hisaab uses READ_SMS to import supported historical
+              bank alerts and RECEIVE_SMS to detect incoming
+              transaction messages. These permissions support
+              automatic expense tracking.
+            </p>
+          </article>
+
+          <article className="glass">
+            <Icon name="database" size={29} />
+
+            <h3>Local-first storage</h3>
+
+            <p>
+              Hisaab is designed to store financial transaction
+              records locally on your Android device using SQLite.
+              Bank login credentials are not required for
+              SMS-based transaction tracking.
+            </p>
+          </article>
+
+          <article className="glass">
+            <Icon name="shield" size={29} />
+
+            <h3>Verify the release</h3>
+
+            <p>
+              Download only from the official Hisaab website.
+              Check the signing certificate fingerprint against
+              the published release information. Each new APK
+              release should be independently verified.
+            </p>
+          </article>
+        </div>
+
         <div className="install-verification glass">
           <div>
-            <span>RELEASE SIGNING CERTIFICATE · SHA-256</span>
+            <span>
+              RELEASE SIGNING CERTIFICATE · SHA-256
+            </span>
+
             <code>
               15d0fc5f173f429eaa0827abf3c9db6bdfd3b6d8b37f96111cf34a6e92cea5da
             </code>
           </div>
+
           <p>
-            Certificate fingerprint, not a guarantee of malware-free behavior.
-            The file's SHA-256 checksum changes with each release.
+            This is the previously published signing certificate
+            fingerprint, not the APK file checksum. Confirm it
+            against your actual release certificate before
+            publishing. A valid signature alone does not
+            guarantee that an app is safe.
           </p>
         </div>
+
         <p className="install-links">
-          Read our <a href="/privacy">privacy policy</a> or review the{" "}
+          Read our <a href="/privacy">privacy policy</a>{" "}
+          or review the{" "}
           <a
             href="https://github.com/Faiz-fs/hisaab"
             target="_blank"
@@ -875,6 +1095,8 @@ function InstallationHelp() {
     </>
   );
 }
+
+
 
 function Download() {
   return (
@@ -904,9 +1126,19 @@ function Download() {
       >
         <span className="eyebrow">READY TO GET STARTED?</span>
 
-        <div className="app-icon">◈</div>
+        <div className="app-icon">
+          <img
+            src={appIcon}
+            alt="Hisaab official app icon"
+            className="download-app-icon"
+            width="96"
+            height="96"
+          />
+        </div>
 
-        <h2 id="download-apk-title">hisaab.</h2>
+        <h2 id="download-apk-title">
+          hisaab<span className="lime">.</span>
+        </h2>
 
         <p>Automatic SMS-based expense tracking for Android</p>
 
