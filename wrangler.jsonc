@@ -1,11 +1,10 @@
-
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "hisaab-web",
   "main": "src/worker.js",
   "compatibility_date": "2026-04-26",
   "observability": {
-    "enabled": true
+    "enabled": true,
   },
   "assets": {
     "directory": "./dist",
@@ -13,16 +12,14 @@
     "not_found_handling": "single-page-application",
     "run_worker_first": [
       "/hisaab-release.apk",
-      "/downloads/hisaab-release.apk"
-    ]
+      "/downloads/hisaab-release.apk",
+    ],
   },
   "r2_buckets": [
     {
       "binding": "HISAAB_RELEASES",
-      "bucket_name": "hisaab-releases"
-    }
+      "bucket_name": "hisaab-releases",
+    },
   ],
-  "compatibility_flags": [
-    "nodejs_compat"
-  ]
+  "compatibility_flags": ["nodejs_compat"],
 }
